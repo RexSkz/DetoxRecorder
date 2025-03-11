@@ -29,38 +29,23 @@ DTX_DIRECT_MEMBERS
 
 + (UIWindow*)dtxrec_keyWindow
 {
-	if(@available(iOS 13, *))
-	{
-		return UIWindowScene._keyWindowScene._keyWindow;
-	}
-	else
-	{
-		return UIWindow.keyWindow;
-	}
+    UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
+    if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)])
+    {
+        return [(id <UIWindowSceneDelegate>)scene.delegate window];
+    }
+    return nil;
 }
 
 + (NSArray<UIWindow *> *)dtxrec_allKeyWindowSceneWindows
 {
 	id scene = nil;
-	
-	if (@available(iOS 13.0, *))
-	{
-		scene = UIWindowScene._keyWindowScene;
-	}
-	
 	return [self dtxrec_allWindowsForScene:scene];
 }
 
 + (NSArray<UIWindow*>*)dtxrec_allWindowsForScene:(id)scene
 {
 	NSMutableArray<UIWindow*>* windows = [[self dtxrec_allWindows] mutableCopy];
-	
-	if (@available(iOS 13.0, *))
-	{
-		scene = scene ?: UIWindowScene._keyWindowScene;
-		[windows filterUsingPredicate:[NSPredicate predicateWithFormat:@"windowScene == %@", scene]];
-	}
-	
 	return windows;
 }
 

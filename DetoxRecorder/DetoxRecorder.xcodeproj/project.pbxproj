@@ -84,6 +84,8 @@
 		39F5AD292461F70A00FB7F18 /* _DTXScrollToAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 39F5AD272461F70A00FB7F18 /* _DTXScrollToAction.h */; };
 		39F5AD2A2461F70A00FB7F18 /* _DTXScrollToAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 39F5AD282461F70A00FB7F18 /* _DTXScrollToAction.m */; };
 		39FB28E424C4B00500A0EF16 /* RecordingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB28E324C4B00500A0EF16 /* RecordingHandler.swift */; };
+		CDE932DF2D8012CC0009E82A /* DTXSocketConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F624C5BC1800BDBDA9 /* DTXSocketConnection.framework */; };
+		CDE932E02D8012CC0009E82A /* DTXSocketConnection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F624C5BC1800BDBDA9 /* DTXSocketConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +146,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CDE932E02D8012CC0009E82A /* DTXSocketConnection.framework in Embed Frameworks */,
 				393CB0FE24C5BC4600BDBDA9 /* DTXSocketConnection.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -267,6 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDE932DF2D8012CC0009E82A /* DTXSocketConnection.framework in Frameworks */,
 				393CB0FD24C5BC4600BDBDA9 /* DTXSocketConnection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,7 +835,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 10.15.4;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -847,7 +851,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.15.4;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -871,7 +875,7 @@
 				GCC_PREFIX_HEADER = DetoxRecorder.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -900,7 +904,7 @@
 				GCC_PREFIX_HEADER = DetoxRecorder.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

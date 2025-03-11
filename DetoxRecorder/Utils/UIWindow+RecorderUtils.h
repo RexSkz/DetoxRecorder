@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, class, readonly, nullable) UIWindow* dtxrec_keyWindow NS_SWIFT_NAME(dtxrec_keyWindow);
 @property (nonatomic, strong, class, readonly) NSArray<UIWindow*>* dtxrec_allKeyWindowSceneWindows;
 
++ (UIWindow*)dtxrec_keyWindow;
 + (NSArray<UIWindow*>*)dtxrec_allWindows;
 + (NSArray<UIWindow*>*)dtxrec_allWindowsForScene:(nullable id /* UIWindowScene* */)scene;
 + (void)dtxrec_enumerateAllWindowsUsingBlock:(void (NS_NOESCAPE ^)(UIWindow* obj, NSUInteger idx, BOOL *stop))block;
