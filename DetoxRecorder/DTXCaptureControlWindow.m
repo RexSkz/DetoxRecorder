@@ -10,6 +10,7 @@
 #import "DTXUIInteractionRecorder.h"
 #import "DTXRecSettingsViewController.h"
 #import "NSUserDefaults+RecorderUtils.h"
+#import "UIWindow+RecorderUtils.h"
 @import AudioToolbox;
 
 @interface UIWindowScene ()
@@ -95,7 +96,7 @@ DTX_DIRECT_MEMBERS
 		
 		self.windowLevel = UIWindowLevelStatusBar;
 		self.hidden = NO;
-		self.windowScene = [UIWindowScene _keyWindowScene];
+        self.windowScene = UIWindow.dtxrec_keyWindow;
 	}
 	
 	return self;
