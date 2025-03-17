@@ -29,12 +29,12 @@
 
 + (UIWindow*)dtx_keyWindow
 {
-    UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
-    if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)])
-    {
-        return [(id <UIWindowSceneDelegate>)scene.delegate window];
-    }
-    return nil;
+	UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
+	if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)])
+	{
+		return [(id <UIWindowSceneDelegate>)scene.delegate window];
+	}
+	return nil;
 }
 
 + (NSArray<UIWindow *> *)dtx_allKeyWindowSceneWindows
@@ -46,7 +46,8 @@
 + (NSArray<UIWindow*>*)dtx_allWindowsForScene:(UIWindowScene*)scene
 {
 	NSMutableArray<UIWindow*>* windows = [[self dtx_allWindows] mutableCopy];
-	scene = scene ?: UIWindowScene._keyWindowScene;
+	NSArray *scenes = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+	scene = scene ?: scenes.lastObject;
 	if(scene != nil)
 	{
 		NSPredicate* predicate = [NSPredicate predicateWithFormat:@"windowScene == %@", scene];
@@ -89,7 +90,8 @@
 
 + (void)dtx_enumerateKeyWindowSceneWindowsUsingBlock:(void (NS_NOESCAPE ^)(UIWindow* obj, NSUInteger idx, BOOL *stop))block
 {
-	UIWindowScene* scene = UIWindowScene._keyWindowScene;
+	NSArray *scenes = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+	UIWindowScene* scene = scenes.lastObject;
 	[self dtx_enumerateWindowsInScene:scene usingBlock:block];
 }
 

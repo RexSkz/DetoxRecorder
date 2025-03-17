@@ -100,7 +100,8 @@ static CGFloat buttonWidth = 44;
 		
 		self.windowLevel = UIWindowLevelStatusBar;
 		self.hidden = NO;
-        self.windowScene = UIWindow.dtx_keyWindow;
+		NSArray *scenes = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+		self.windowScene = scenes.lastObject;
 	}
 	
 	return self;
@@ -289,7 +290,11 @@ static CGFloat buttonWidth = 44;
 		return;
 	}
 	
-	_prevKeyWindow = self.windowScene._keyWindow;
+	NSArray *scenes = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+	UIWindowScene *scene = scenes.lastObject;
+	if (scene != NULL) {
+		_prevKeyWindow = scene.windows.lastObject;
+	}
 	
 	[super makeKeyWindow];
 }
@@ -368,7 +373,11 @@ static CGFloat buttonWidth = 44;
 {
 	_expectationBuilderWindow = [[DTXExpectationBuilderWindow alloc] initWithCaptureControlWindow:self];
 	_expectationBuilderWindow.delegate = self;
-	_expectationBuilderWindow.appWindow = UIWindowScene._keyWindowScene._keyWindow;
+	NSArray *scenes = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+	UIWindowScene *scene = scenes.lastObject;
+	if (scene != NULL) {
+		_expectationBuilderWindow.appWindow = scene.windows.lastObject;
+	}
 	_expectationBuilderWindow.windowLevel = self.windowLevel;
 	[_expectationBuilderWindow makeKeyAndVisible];
 	
