@@ -35,7 +35,8 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "~/Documents/Workspace/DetoxRecorder/TesterAppRN"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -52,14 +53,6 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--help2"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--version"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "--simulatorId booted"
             isEnabled = "YES">
          </CommandLineArgument>
@@ -68,27 +61,19 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--simulatorId &quot;6B3E7B05-11D4-46B9-8F22-E6D0406A8137&quot;"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "--testName &quot;It should record&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--outputTestFile &quot;~/Desktop&quot;"
+            argument = "--outputTestFile &quot;~/Desktop/RecordedTest.js&quot;"
             isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--bundleId &quot;com.apple.mobilesafari&quot;"
-            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--record"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--recorderFrameworkPath &quot;~/Documents/Workspace/DetoxRecorder/Distribution/DetoxRecorder.framework&quot;"
+            argument = "--recorderFrameworkPath &quot;../../Distribution/DetoxRecorder.framework&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

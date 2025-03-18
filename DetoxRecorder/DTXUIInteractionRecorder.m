@@ -977,7 +977,7 @@ static inline CGPoint DTXDirectionOfScroll(DTXRecordedAction* action)
 
 + (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary<NSString *, NSNumber *> *)errorDict
 {
-	[self _presentError:[NSError errorWithDomain:@"" code:[errorDict[NSNetServicesErrorCode] unsignedIntValue] userInfo:@{NSLocalizedDescriptionKey: @"Unable to connec to the recording service."}] completionHandler:^{
+	[self _presentError:[NSError errorWithDomain:@"" code:[errorDict[NSNetServicesErrorCode] unsignedIntValue] userInfo:@{NSLocalizedDescriptionKey: @"Unable to connect to the recording service."}] completionHandler:^{
 		[self stopRecording];
 	}];
 }

@@ -15,7 +15,8 @@
 		96905EF65AED1B983A6B3ABC /* libPods-TesterAppRN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-TesterAppRN.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		CDCF4D842D87F7EF001227BF /* DetoxRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDCF4D812D87F7DC001227BF /* DetoxRecorder.framework */; };
+		CDCF4D8D2D890F78001227BF /* DetoxRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDCF4D812D87F7DC001227BF /* DetoxRecorder.framework */; };
+		CDCF4D8E2D890F78001227BF /* DetoxRecorder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDCF4D812D87F7DC001227BF /* DetoxRecorder.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E0D5B12A93BE96135576D95B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D8AA4E5C4E0A4C1EA278A884 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,20 @@
 			remoteInfo = DetoxRecorderCLI;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CDCF4D8F2D890F78001227BF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CDCF4D8E2D890F78001227BF /* DetoxRecorder.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		134A88150E654D27B2BDCD11 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "TesterAppRN/noop-file.swift"; sourceTree = "<group>"; };
@@ -62,7 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96905EF65AED1B983A6B3ABC /* libPods-TesterAppRN.a in Frameworks */,
-				CDCF4D842D87F7EF001227BF /* DetoxRecorder.framework in Frameworks */,
+				CDCF4D8D2D890F78001227BF /* DetoxRecorder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +199,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
 				F8A5B453940315A8B93BCD9D /* [CP] Embed Pods Frameworks */,
+				CDCF4D8F2D890F78001227BF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

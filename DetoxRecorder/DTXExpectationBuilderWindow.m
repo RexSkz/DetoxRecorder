@@ -113,7 +113,7 @@
 //		static const CGFloat notchWidth = 209.0;
 		
 		[NSLayoutConstraint activateConstraints:@[
-			[_closeButton.topAnchor constraintEqualToAnchor:self.topAnchor constant:4],
+			[_closeButton.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor constant:0],
 			[_closeButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:30],
 		]];
 		
