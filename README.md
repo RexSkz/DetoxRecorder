@@ -113,3 +113,7 @@ During recording you will see that a new bar is displayed at the top of the scre
 ### After Recording
 
 After finishing your recording, add expectations that check if UI elements are in the expected state. See [Expectations](https://github.com/wix/Detox/blob/master/docs/APIRef.Expect.md) for more information.
+
+### Development Guide
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for information on how to contribute to Detox Recorder.
