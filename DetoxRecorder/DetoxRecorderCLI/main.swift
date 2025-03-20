@@ -21,15 +21,16 @@ LNUsageSetIntroStrings([
 	"If no app or simulator information is provided, the Detox configuration will be used for obtaining the appropriate information."])
 
 LNUsageSetExampleStrings([
-	"detox recorder --bundleId \"com.example.myApp\" --simulatorId booted --outputTestFile \"~/Desktop/RecordedTest.js\" --testName \"My Recorded Test\" --record",
-	"detox recorder --bundleId \"com.example.myApp\" --simulatorId \"69D91B05-64F4-497B-A2FC-9A109B310F38\" --outputTestFile \"~/Desktop/RecordedTest.js\" --testName \"My Recorded Test\" --record",
-	"detox recorder --configuration \"ios.sim.release\" --outputTestFile \"~/Desktop/RecordedTest.js\" --testName \"My Recorded Test\" --record"
+	"detox recorder --bundleId \"com.example.myApp\" --simulatorId booted --outputTestFile \"~/Desktop/RecordedTest.js\" --testName \"My Recorded Test\" --targetPlatform ios --record",
+	"detox recorder --bundleId \"com.example.myApp\" --simulatorId \"69D91B05-64F4-497B-A2FC-9A109B310F38\" --outputTestFile \"~/Desktop/RecordedTest.js\" --testName \"My Recorded Test\" --targetPlatform ios --record",
+	"detox recorder --configuration \"ios.sim.release\" --outputTestFile \"~/Desktop/RecordedTest.js\" --testName \"My Recorded Test\" --targetPlatform ios --record"
 ])
 
 LNUsageSetOptions([
 	LNUsageOption(name: "record", shortcut: "r", valueRequirement: .none, description: "Start recording"),
 	LNUsageOption(name: "outputTestFile", shortcut: "o", valueRequirement: .required, description: "The output file (required)"),
 	LNUsageOption(name: "testName", shortcut: "n", valueRequirement: .required, description: "The test name (optional)"),
+	LNUsageOption(name: "targetPlatform", shortcut: "p", valueRequirement: .required, description: "The target platform (optional, defaults to ios)"),
 	LNUsageOption.empty(),
 	LNUsageOption(name: "configuration", shortcut: "c", valueRequirement: .required, description: "The Detox configuration to use (optional, required if either app or simulator information is not provided"),
 	LNUsageOption.empty(),
@@ -424,7 +425,8 @@ do {
 }
 
 let testName = parser.object(forKey: "testName") as? String ?? "My Recorded Test"
-var args = ["launch", simulatorId, appBundleId, "-DTXRecStartRecording", "1", "-DTXRecTestName", testName]
+let targetPlatform = parser.object(forKey: "targetPlatform") as? String ?? "ios"
+var args = ["launch", simulatorId, appBundleId, "-DTXRecStartRecording", "1", "-DTXRecTestName", testName, "-DTXRecTargetPlatform", targetPlatform]
 
 if parser.bool(forKey: "noExit") {
 	args.append(contentsOf: ["-DTXRecNoExit", "1"])

@@ -24,7 +24,7 @@
 
 - (NSString *)detoxDescription
 {
-	return [NSString stringWithFormat:@"//%@", _comment];
+	return [NSString stringWithFormat:@"// %@", _comment];
 }
 
 @end

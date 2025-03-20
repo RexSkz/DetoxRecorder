@@ -150,8 +150,49 @@ static NSMutableString* _DTXBestEffortAccessibilityLabelForView(UIView* view)
 	return [view accessibilityLabel].mutableCopy;
 }
 
+static inline NSString* _DTXToAndroidPackageName(NSString* iosClassName)
+{
+	// TODO: may have bugs, but they will be fixed gradually
+	// https://github.com/facebook/react-native/tree/main/packages/react-native/ReactAndroid/src/main/java/com/facebook/react
+	if([iosClassName isEqualToString:@"RCTTextView"])
+	{
+		return @"com.facebook.react.views.text.ReactTextView";
+	}
+	if([iosClassName isEqualToString:@"RCTView"])
+	{
+		return @"com.facebook.react.views.view.ReactViewGroup";
+	}
+	if([iosClassName isEqualToString:@"RCTUITextField"])
+	{
+		return @"com.facebook.react.views.textinput.ReactEditText";
+	}
+	if([iosClassName isEqualToString:@"RCTScrollView"])
+	{
+		return @"com.facebook.react.views.scroll.ReactScrollView";
+	}
+	if([iosClassName isEqualToString:@"RCTSwitch"])
+	{
+		return @"com.facebook.react.views.switchview.ReactSwitch";
+	}
+	if([iosClassName isEqualToString:@"RCTImageView"])
+	{
+		return @"com.facebook.react.views.image.ReactImageView";
+	}
+	if([iosClassName isEqualToString:@"RCTModalHostView"])
+	{
+		return @"com.facebook.react.views.modal.ReactModalHostView";
+	}
+	return iosClassName;
+}
+
 static NSMutableString* DTXBestEffortTextForView(UIView* view, NSInteger* idx, DTXRecordedElement* ancestorElement)
 {
+	// do not use text on RCTText-related views
+	if([NSStringFromClass(view.class) hasPrefix:@"RCTUITextField"])
+	{
+		return @"".mutableCopy;
+	}
+
 	NSMutableString* text = [view valueForKey:@"dtx_text"];
 	
 	if(text.length > 0)
@@ -253,6 +294,12 @@ static NSMutableArray<NSMutableString*>* DTXGetSuperviewChain(UIView* view)
 	if(byId.length == 0 && (byLabel.length == 0 || byText.length == 0 || enforceByType == YES))
 	{
 		byType = DTXBestEffortByClassForView(view, byText, byLabel, &byTypeIdx, ancestorElement);
+
+		// translate to Android package name if needed
+		NSString* targetPlatform = [NSUserDefaults.standardUserDefaults stringForKey:@"DTXRecTargetPlatform"] ?: @"ios";
+		if([targetPlatform isEqualToString:@"android"]) {
+			byType = _DTXToAndroidPackageName(byType);
+		}
 	}
 	
 	if(byId.length == 0 && byLabel.length == 0 && byType.length == 0 && byText.length == 0)

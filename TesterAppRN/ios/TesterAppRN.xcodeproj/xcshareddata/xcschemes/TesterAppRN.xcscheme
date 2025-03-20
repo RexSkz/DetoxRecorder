@@ -66,6 +66,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-DTXTargetPlatform ios"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-DTXRecTestName &quot;My recorded test&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
