@@ -10,6 +10,7 @@
 #import "DTXUIInteractionRecorder.h"
 #import "UIPickerView+RecorderUtils.h"
 #import "DTXAppleInternals.h"
+#import "DTXRNEnvironment.h"
 @import ObjectiveC;
 
 @implementation UIGestureRecognizer (GestureCapture)
@@ -283,29 +284,32 @@ static void* DTXRNGestureRecognizerLongPressTimer = &DTXRNGestureRecognizerLongP
 	[self _dtxrec_clearTimer];
 }
 
-+ (void)load
-{
-	@autoreleasepool {
-		Class RNGestureRecognizerClass = NSClassFromString(@"RCTTouchHandler");
-		if(RNGestureRecognizerClass != nil)
-		{
-			Method m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesBegan:withEvent:));
-			Method m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesBegan:withEvent:));
-			method_exchangeImplementations(m, m2);
-			
-			m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesCancelled:withEvent:));
-			m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesCancelled:withEvent:));
-			method_exchangeImplementations(m, m2);
-			
-			m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesMoved:withEvent:));
-			m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesMoved:withEvent:));
-			method_exchangeImplementations(m, m2);
-			
-			m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesEnded:withEvent:));
-			m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesEnded:withEvent:));
-			method_exchangeImplementations(m, m2);
-		}
-	}
++ (void)load {
+    Class RNGestureRecognizerClass = nil;
+    if ([DTXRNEnvironment isFabricEnabled]) {
+        // The gestures of Button and TouchableOpacity in the new architecture are unified into the RCTSurfaceTouchHandler class.
+        RNGestureRecognizerClass = NSClassFromString(@"RCTSurfaceTouchHandler");
+    } else {
+        RNGestureRecognizerClass = NSClassFromString(@"RCTTouchHandler");
+    }
+
+    if(RNGestureRecognizerClass != nil) {
+        Method m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesBegan:withEvent:));
+        Method m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesBegan:withEvent:));
+        method_exchangeImplementations(m, m2);
+        
+        m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesCancelled:withEvent:));
+        m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesCancelled:withEvent:));
+        method_exchangeImplementations(m, m2);
+        
+        m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesMoved:withEvent:));
+        m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesMoved:withEvent:));
+        method_exchangeImplementations(m, m2);
+        
+        m = class_getInstanceMethod(RNGestureRecognizerClass, @selector(touchesEnded:withEvent:));
+        m2 = class_getInstanceMethod(self, @selector(_dtxrec_rn_touchesEnded:withEvent:));
+        method_exchangeImplementations(m, m2);
+    }
 }
 
 @end

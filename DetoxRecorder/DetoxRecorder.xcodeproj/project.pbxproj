@@ -94,8 +94,8 @@
 		39F5AD292461F70A00FB7F18 /* _DTXScrollToAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 39F5AD272461F70A00FB7F18 /* _DTXScrollToAction.h */; };
 		39F5AD2A2461F70A00FB7F18 /* _DTXScrollToAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 39F5AD282461F70A00FB7F18 /* _DTXScrollToAction.m */; };
 		39FB28E424C4B00500A0EF16 /* RecordingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB28E324C4B00500A0EF16 /* RecordingHandler.swift */; };
-		CDE932DF2D8012CC0009E82A /* DTXSocketConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F624C5BC1800BDBDA9 /* DTXSocketConnection.framework */; };
-		CDE932E02D8012CC0009E82A /* DTXSocketConnection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F624C5BC1800BDBDA9 /* DTXSocketConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		60257BFE2D963DB000BCCC99 /* DTXRNEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 60257BFC2D963DB000BCCC99 /* DTXRNEnvironment.h */; };
+		60257BFF2D963DB000BCCC99 /* DTXRNEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 60257BFD2D963DB000BCCC99 /* DTXRNEnvironment.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +275,8 @@
 		39F5AD282461F70A00FB7F18 /* _DTXScrollToAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _DTXScrollToAction.m; sourceTree = "<group>"; };
 		39FB28E324C4B00500A0EF16 /* RecordingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingHandler.swift; sourceTree = "<group>"; };
 		39FFFB1624C737A000B83E80 /* DTXUIInteractionRecorder-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DTXUIInteractionRecorder-Private.h"; sourceTree = "<group>"; };
+		60257BFC2D963DB000BCCC99 /* DTXRNEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTXRNEnvironment.h; sourceTree = "<group>"; };
+		60257BFD2D963DB000BCCC99 /* DTXRNEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTXRNEnvironment.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +331,8 @@
 				392F3559225F6882003E8CF2 /* DTXCaptureControlWindow.h */,
 				392F355A225F6882003E8CF2 /* DTXCaptureControlWindow.m */,
 				392F3553225F6882003E8CF2 /* DTXUIInteractionRecorder.h */,
+				60257BFC2D963DB000BCCC99 /* DTXRNEnvironment.h */,
+				60257BFD2D963DB000BCCC99 /* DTXRNEnvironment.m */,
 				39FFFB1624C737A000B83E80 /* DTXUIInteractionRecorder-Private.h */,
 				392F355C225F6882003E8CF2 /* DTXUIInteractionRecorder.m */,
 				39F5AD022461A28400FB7F18 /* DetoxRecorder.h */,
@@ -538,6 +542,7 @@
 				39C013922473CC8000784C84 /* UIPickerView+RecorderUtils.h in Headers */,
 				39F5AD042461A28400FB7F18 /* DetoxRecorder.h in Headers */,
 				390FF62E24968B620022BF11 /* NSString+QuotedStringForJS.h in Headers */,
+				60257BFE2D963DB000BCCC99 /* DTXRNEnvironment.h in Headers */,
 				39C013412472EB8E00784C84 /* _DTXLongPressAction.h in Headers */,
 				39A56FF5258A201E0067D86B /* NSObject+RecorderUtils.h in Headers */,
 				39C0139A2473CD0900784C84 /* NSArray+Utils.h in Headers */,
@@ -750,6 +755,7 @@
 				39F5AD0C2461A29600FB7F18 /* UIControl+TapCapture.m in Sources */,
 				39F5AD132461A2AF00FB7F18 /* _DTXScrollAction.m in Sources */,
 				39A56FF6258A201E0067D86B /* NSObject+RecorderUtils.m in Sources */,
+				60257BFF2D963DB000BCCC99 /* DTXRNEnvironment.m in Sources */,
 				395AD7C824B385D4002B382B /* DTXLogging.m in Sources */,
 				39A56FA0258A12EB0067D86B /* DTXCaptureControlWindow.m in Sources */,
 				39F5AD102461A2AF00FB7F18 /* DTXRecordedElement.m in Sources */,
@@ -893,6 +899,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"RCT_NEW_ARCH_ENABLED=0",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -909,6 +919,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"RCT_NEW_ARCH_ENABLED=0",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -934,6 +948,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = DetoxRecorder.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"RCT_NEW_ARCH_ENABLED=0",
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -966,6 +984,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = DetoxRecorder.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"RCT_NEW_ARCH_ENABLED=0",
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
