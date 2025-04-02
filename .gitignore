@@ -68,3 +68,6 @@ fastlane/test_output
 iOSInjectionProject/
 Build/
 node_modules
+Logs
+ModuleCache.noindex
+SDKStatCaches.noindex
