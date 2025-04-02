@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+RecorderUtils.h"
+#import "DTXFabricComponentViewUtils.h"
 
 @implementation NSObject (RecorderUtils)
 
@@ -18,15 +19,22 @@
 	}
 	
 	static Class RCTTextView;
+    static Class RCTParagraphTextView;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		RCTTextView = NSClassFromString(@"RCTTextView");
+        RCTParagraphTextView = NSClassFromString(@"RCTParagraphTextView");
 	});
 	if(RCTTextView != nil && [self isKindOfClass:RCTTextView])
 	{
 		return [(NSTextStorage*)[self valueForKey:@"textStorage"] string];
 	}
-	
+    
+    // Adapt to new architecture
+    if(RCTParagraphTextView != nil && [self isKindOfClass:RCTParagraphTextView]) {
+        return [DTXFabricComponentViewUtils textOfRCTParagraphTextView:(UIView *)self];
+    }
+    
 	return nil;
 }
 

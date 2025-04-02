@@ -45,7 +45,6 @@
 		39A56FA3258A18410067D86B /* DTXSelectedElementController.h in Headers */ = {isa = PBXBuildFile; fileRef = 39A56FA1258A18410067D86B /* DTXSelectedElementController.h */; };
 		39A56FA4258A18410067D86B /* DTXSelectedElementController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A56FA2258A18410067D86B /* DTXSelectedElementController.m */; };
 		39A56FF5258A201E0067D86B /* NSObject+RecorderUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 39A56FF3258A201E0067D86B /* NSObject+RecorderUtils.h */; };
-		39A56FF6258A201E0067D86B /* NSObject+RecorderUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A56FF4258A201E0067D86B /* NSObject+RecorderUtils.m */; };
 		39AE548E2490FA3A0093BFEE /* _DTXAdjustSliderAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 39AE548C2490FA3A0093BFEE /* _DTXAdjustSliderAction.h */; };
 		39AE548F2490FA3A0093BFEE /* _DTXAdjustSliderAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AE548D2490FA3A0093BFEE /* _DTXAdjustSliderAction.m */; };
 		39AE54922490FAE10093BFEE /* UISlider+RecorderUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 39AE54902490FAE10093BFEE /* UISlider+RecorderUtils.h */; };
@@ -96,6 +95,9 @@
 		39FB28E424C4B00500A0EF16 /* RecordingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB28E324C4B00500A0EF16 /* RecordingHandler.swift */; };
 		60257BFE2D963DB000BCCC99 /* DTXRNEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 60257BFC2D963DB000BCCC99 /* DTXRNEnvironment.h */; };
 		60257BFF2D963DB000BCCC99 /* DTXRNEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 60257BFD2D963DB000BCCC99 /* DTXRNEnvironment.m */; };
+		60A5BB762D9B94AF00FD651A /* NSObject+RecorderUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A5BB752D9B94AE00FD651A /* NSObject+RecorderUtils.m */; };
+		60A5BBAF2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A5BBAE2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m */; };
+		60A5BBB02D9C43EA00FD651A /* DTXFabricComponentViewUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 60A5BBAD2D9C43EA00FD651A /* DTXFabricComponentViewUtils.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,7 +224,6 @@
 		39A56FA1258A18410067D86B /* DTXSelectedElementController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTXSelectedElementController.h; sourceTree = "<group>"; };
 		39A56FA2258A18410067D86B /* DTXSelectedElementController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTXSelectedElementController.m; sourceTree = "<group>"; };
 		39A56FF3258A201E0067D86B /* NSObject+RecorderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+RecorderUtils.h"; sourceTree = "<group>"; };
-		39A56FF4258A201E0067D86B /* NSObject+RecorderUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RecorderUtils.m"; sourceTree = "<group>"; };
 		39AE548C2490FA3A0093BFEE /* _DTXAdjustSliderAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _DTXAdjustSliderAction.h; sourceTree = "<group>"; };
 		39AE548D2490FA3A0093BFEE /* _DTXAdjustSliderAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _DTXAdjustSliderAction.m; sourceTree = "<group>"; };
 		39AE54902490FAE10093BFEE /* UISlider+RecorderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISlider+RecorderUtils.h"; sourceTree = "<group>"; };
@@ -277,6 +278,9 @@
 		39FFFB1624C737A000B83E80 /* DTXUIInteractionRecorder-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DTXUIInteractionRecorder-Private.h"; sourceTree = "<group>"; };
 		60257BFC2D963DB000BCCC99 /* DTXRNEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTXRNEnvironment.h; sourceTree = "<group>"; };
 		60257BFD2D963DB000BCCC99 /* DTXRNEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTXRNEnvironment.m; sourceTree = "<group>"; };
+		60A5BB752D9B94AE00FD651A /* NSObject+RecorderUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RecorderUtils.m"; sourceTree = "<group>"; };
+		60A5BBAD2D9C43EA00FD651A /* DTXFabricComponentViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTXFabricComponentViewUtils.h; sourceTree = "<group>"; };
+		60A5BBAE2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTXFabricComponentViewUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,7 +398,9 @@
 				395AD7FB24B4A02C002B382B /* UIWindow+RecorderUtils.h */,
 				395AD7FC24B4A02C002B382B /* UIWindow+RecorderUtils.m */,
 				39A56FF3258A201E0067D86B /* NSObject+RecorderUtils.h */,
-				39A56FF4258A201E0067D86B /* NSObject+RecorderUtils.m */,
+				60A5BB752D9B94AE00FD651A /* NSObject+RecorderUtils.m */,
+				60A5BBAD2D9C43EA00FD651A /* DTXFabricComponentViewUtils.h */,
+				60A5BBAE2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -524,6 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39449C4A2462F68000B967FC /* _DTXSetDatePickerDateAction.h in Headers */,
+				60A5BBB02D9C43EA00FD651A /* DTXFabricComponentViewUtils.h in Headers */,
 				395AD7C924B385D4002B382B /* DTXLogging.h in Headers */,
 				39454C2424AA3CBF00761A51 /* _DTXCodeCommentAction.h in Headers */,
 				39AE54922490FAE10093BFEE /* UISlider+RecorderUtils.h in Headers */,
@@ -738,6 +745,7 @@
 				39F5AD0B2461A29400FB7F18 /* DTXUIInteractionRecorder.m in Sources */,
 				39F5AD122461A2AF00FB7F18 /* _DTXTapAction.m in Sources */,
 				39F5AD112461A2AF00FB7F18 /* DTXRecordedAction.m in Sources */,
+				60A5BB762D9B94AF00FD651A /* NSObject+RecorderUtils.m in Sources */,
 				39F4205A257EB6D400610F2F /* DTXElementPickerController.m in Sources */,
 				393CB10324C5ECA000BDBDA9 /* DTXRecSettingsMultipleChoiceController.m in Sources */,
 				39C0138F2473CC8000784C84 /* UIApplication+EnableAccessibility.m in Sources */,
@@ -754,11 +762,11 @@
 				390FF63B2497CB3A0022BF11 /* UITableView+SelectionCapture.m in Sources */,
 				39F5AD0C2461A29600FB7F18 /* UIControl+TapCapture.m in Sources */,
 				39F5AD132461A2AF00FB7F18 /* _DTXScrollAction.m in Sources */,
-				39A56FF6258A201E0067D86B /* NSObject+RecorderUtils.m in Sources */,
 				60257BFF2D963DB000BCCC99 /* DTXRNEnvironment.m in Sources */,
 				395AD7C824B385D4002B382B /* DTXLogging.m in Sources */,
 				39A56FA0258A12EB0067D86B /* DTXCaptureControlWindow.m in Sources */,
 				39F5AD102461A2AF00FB7F18 /* DTXRecordedElement.m in Sources */,
+				60A5BBAF2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
