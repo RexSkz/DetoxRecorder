@@ -88,6 +88,7 @@
 	BOOL _pickingVisually;
 	UIVisualEffectView* _backgroundView;
 	UIButton* _closeButton;
+	UILabel* _visualPickingPromptLabel;
 	
 	DTXElementPickerController* _navigationController;
 	
@@ -121,6 +122,33 @@
 		_navigationController.delegate = self;
 		self.rootViewController = _navigationController;
 		
+		_visualPickingPromptLabel = [UILabel new];
+		_visualPickingPromptLabel.text = @"Please tap an element";
+		_visualPickingPromptLabel.font = [UIFont systemFontOfSize:12.0 weight:UIFontWeightRegular];
+		_visualPickingPromptLabel.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.75];
+		_visualPickingPromptLabel.textColor = UIColor.whiteColor;
+		_visualPickingPromptLabel.textAlignment = NSTextAlignmentCenter;
+		_visualPickingPromptLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		_visualPickingPromptLabel.hidden = YES;
+		_visualPickingPromptLabel.layer.cornerRadius = 5.0;
+		_visualPickingPromptLabel.clipsToBounds = YES;
+		_visualPickingPromptLabel.userInteractionEnabled = NO;
+		_visualPickingPromptLabel.alpha = 0.0; // Start fully transparent for fade-in
+
+		// Add padding by setting attributed text (optional, but makes it look nicer)
+		NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_visualPickingPromptLabel.text];
+		[attributedString addAttribute:NSKernAttributeName value:@(0.3) range:NSMakeRange(0, attributedString.length)];
+		_visualPickingPromptLabel.attributedText = attributedString;
+
+		[self addSubview:_visualPickingPromptLabel];
+
+		[NSLayoutConstraint activateConstraints:@[
+			[_visualPickingPromptLabel.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor constant:12],
+			[_visualPickingPromptLabel.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16],
+			[_visualPickingPromptLabel.heightAnchor constraintGreaterThanOrEqualToConstant:26], // Min height
+			[_visualPickingPromptLabel.widthAnchor constraintGreaterThanOrEqualToConstant:160] // Min width
+		]];
+
 		self.windowScene = captureControlWindow.windowScene;
 		_captureControlWindow = captureControlWindow;
 	}
@@ -158,14 +186,17 @@
 
 - (void)_close:(UIButton*)sender
 {
+	_visualPickingPromptLabel.hidden = YES; // Hide immediately
 	[UIView animateKeyframesWithDuration:0.25 delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubicPaced animations:^{
 		[UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.4 animations:^{
 			self.alpha = 0.0;
+			_visualPickingPromptLabel.alpha = 0.0;
 		}];
 		[UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:1.0 animations:^{
 			_backgroundView.effect = nil;
 		}];
 	} completion:^(BOOL finished) {
+		_visualPickingPromptLabel.hidden = YES; // Ensure hidden
 		[self.delegate expectationBuilderWindowDidEnd:self];
 	}];
 }
@@ -197,6 +228,9 @@
 		[_navigationController visualElementPickerDidSelectElement:rv];
 		
 		_pickingVisually = NO;
+		_visualPickingPromptLabel.hidden = YES;
+		_visualPickingPromptLabel.alpha = 0.0;
+
 		[UIView animateKeyframesWithDuration:0.25 delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubicPaced animations:^{
 			[UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:1.0 animations:^{
 				_backgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemThinMaterial];
@@ -222,7 +256,14 @@
 			_backgroundView.effect = nil;
 		}];
 	} completion:^(BOOL finished) {
-		_pickingVisually = YES;
+		if(finished) {
+			_pickingVisually = YES;
+			_visualPickingPromptLabel.hidden = NO;
+			[self bringSubviewToFront:_visualPickingPromptLabel];
+			[UIView animateWithDuration:0.15 animations:^{
+				_visualPickingPromptLabel.alpha = 1.0;
+			}];
+		}
 	}];
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "DTXElementSearchController.h"
+#import "UIView+DTXAdditions.h"
+#import "DTXSelectedElementController.h"
 
 @interface UIViewController ()
 
@@ -19,6 +21,8 @@
 @interface _DTXElementSearchController () <UISearchControllerDelegate, UISearchBarDelegate>
 {
 	UISearchBar* _searchBar;
+	NSMutableArray* _searchResults;
+	NSArray* _allElements;
 }
 
 @end
@@ -29,6 +33,7 @@
 {
     [super viewDidLoad];
 	
+	_searchResults = [NSMutableArray new];
 	self.title = @"Search";
 	
 	_searchBar = [UISearchBar new];
@@ -46,10 +51,52 @@
 	self.navigationItem.titleView = _searchBar;
 }
 
+- (void)_discoverElements
+{
+	NSMutableArray* elements = [NSMutableArray new];
+
+	UIWindow* keyWindow = UIApplication.sharedApplication.keyWindow;
+	NSMutableArray<UIView*>* viewsToProcess = [NSMutableArray arrayWithObject:keyWindow];
+
+	while(viewsToProcess.count > 0)
+	{
+		UIView* currentView = viewsToProcess.firstObject;
+		[viewsToProcess removeObjectAtIndex:0];
+
+		NSString* accessibilityIdentifier = currentView.accessibilityIdentifier;
+		NSString* text = currentView.dtx_text;
+		NSString* accessibilityLabel = currentView.accessibilityLabel;
+
+		if(accessibilityIdentifier.length > 0 || text.length > 0 || accessibilityLabel.length > 0)
+		{
+			NSMutableDictionary* elementInfo = [NSMutableDictionary new];
+			elementInfo[@"view"] = currentView;
+			if(accessibilityIdentifier.length > 0)
+			{
+				elementInfo[@"accessibilityIdentifier"] = accessibilityIdentifier;
+			}
+			if(text.length > 0)
+			{
+				elementInfo[@"text"] = text;
+			}
+			if(accessibilityLabel.length > 0)
+			{
+				elementInfo[@"accessibilityLabel"] = accessibilityLabel;
+			}
+			[elements addObject:elementInfo.copy];
+		}
+
+		[viewsToProcess addObjectsFromArray:currentView.subviews];
+	}
+
+	_allElements = elements.copy;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
 	
+	[self _discoverElements];
 	[_searchBar becomeFirstResponder];
 }
 
@@ -68,28 +115,125 @@
 	[self.navigationController _dismissPresentation:nil];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+- (void)_performSearch
 {
+	NSString* searchText = _searchBar.text;
+	NSInteger selectedScope = _searchBar.selectedScopeButtonIndex;
+
+	[_searchResults removeAllObjects];
+
 	if(searchText.length == 0)
 	{
 		self.tableView.hidden = YES;
+		[self.tableView reloadData];
+		return;
 	}
+
+	for (NSDictionary* elementInfo in _allElements)
+	{
+		NSString* accessibilityIdentifier = elementInfo[@"accessibilityIdentifier"];
+		NSString* text = elementInfo[@"text"];
+		NSString* accessibilityLabel = elementInfo[@"accessibilityLabel"];
+
+		BOOL match = NO;
+
+		switch (selectedScope)
+		{
+			case 0: // Any
+				if ([accessibilityIdentifier localizedCaseInsensitiveContainsString:searchText] ||
+					[text localizedCaseInsensitiveContainsString:searchText] ||
+					[accessibilityLabel localizedCaseInsensitiveContainsString:searchText])
+				{
+					match = YES;
+				}
+				break;
+			case 1: // Identifier
+				if ([accessibilityIdentifier localizedCaseInsensitiveContainsString:searchText])
+				{
+					match = YES;
+				}
+				break;
+			case 2: // Text
+				if ([text localizedCaseInsensitiveContainsString:searchText])
+				{
+					match = YES;
+				}
+				break;
+			case 3: // Label
+				if ([accessibilityLabel localizedCaseInsensitiveContainsString:searchText])
+				{
+					match = YES;
+				}
+				break;
+		}
+
+		if(match)
+		{
+			[_searchResults addObject:elementInfo];
+		}
+	}
+
+	[self.tableView reloadData];
+	self.tableView.hidden = _searchResults.count == 0;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+	[self _performSearch];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-	if(searchBar.text.length == 0)
-	{
-		self.tableView.hidden = YES;
-		return;
-	}
-	
-	self.tableView.hidden = NO;
+	[self _performSearch];
+	[_searchBar resignFirstResponder];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+- (void)searchBar:(UISearchBAr *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
+	[self _performSearch];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return _searchResults.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	static NSString* const CellIdentifier = @"ElementCell";
+	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if(cell == nil)
+	{
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+	}
 	
+	NSDictionary* elementInfo = _searchResults[indexPath.row];
+	UIView* view = elementInfo[@"view"];
+
+	cell.textLabel.text = NSStringFromClass(view.class);
+	cell.detailTextLabel.text = elementInfo[@"accessibilityIdentifier"];
+
+	return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSDictionary* elementInfo = _searchResults[indexPath.row];
+	UIView* selectedView = elementInfo[@"view"];
+
+	DTXSelectedElementController* selectedElementController = [DTXSelectedElementController new];
+	selectedElementController.selectedView = selectedView;
+	
+	[self.navigationController pushViewController:selectedElementController animated:YES];
 }
 
 @end
