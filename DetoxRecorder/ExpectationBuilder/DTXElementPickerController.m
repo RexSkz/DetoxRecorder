@@ -8,6 +8,7 @@
 
 #import "DTXElementPickerController.h"
 #import "DTXPickerTypeSelectionController.h"
+#import "DTXSelectedElementController.h"
 
 @interface DTXElementPickerController ()
 
@@ -40,14 +41,9 @@
 
 - (void)visualElementPickerDidSelectElement:(UIView*)element
 {
-	UIViewController* test = [UIViewController new];
-	test.view.backgroundColor = UIColor.redColor;
-	UIView* snapshot = [element snapshotViewAfterScreenUpdates:YES];
-	[test.view addSubview:snapshot];
-//	snapshot.bounds = CGRectMake(0, 0, 30, 30);
-	snapshot.center = test.view.center;
-	
-	[self pushViewController:test animated:NO];
+	DTXSelectedElementController* selectedElementVC = [DTXSelectedElementController new];
+	selectedElementVC.selectedView = element;
+	[self pushViewController:selectedElementVC animated:NO];
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
