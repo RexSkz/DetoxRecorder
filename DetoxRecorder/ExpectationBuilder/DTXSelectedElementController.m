@@ -449,8 +449,7 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
 - (void)_copyExpect:(UIButton*)sender {
     if (self.generatedExpectString && self.generatedExpectString.length > 0) {
         UIPasteboard.generalPasteboard.string = self.generatedExpectString;
-        // Optionally show a brief confirmation
-        [self dtx_showAlertWithTitle:@"Copied" message:[NSString stringWithFormat:@"\"%@\" copied to clipboard.", self.generatedExpectString] duration:1.5];
+        [self dtx_showAlertWithTitle:@"Copied!" message:[NSString stringWithFormat:@"\"%@\" copied to clipboard.", self.generatedExpectString] duration:1.5];
     }
 }
 
@@ -460,11 +459,11 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
         DTXUIInteractionRecorder* recorder = [DTXUIInteractionRecorder sharedRecorder];
         [recorder recordAction:expectationAction];
 
-        [self dtx_showAlertWithTitle:@"Success" message:@"Expectation inserted into script." duration:1.5];
+        [self dtx_showAlertWithTitle:@"Success" message:@"Expectation inserted into script."];
         // Consider dismissing the controller or providing a "Done" button.
         // For now, user can manually go back or add more.
     } else {
-        [self dtx_showAlertWithTitle:@"Error" message:@"No valid expectation to insert." duration:2.0];
+        [self dtx_showAlertWithTitle:@"Error" message:@"No valid expectation to insert."];
     }
 }
 

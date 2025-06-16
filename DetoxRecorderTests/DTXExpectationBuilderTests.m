@@ -21,15 +21,26 @@
 @interface DTXExpectationBuilderTests : XCTestCase
 @end
 
-@implementation DTXExpectationBuilderTests
+@implementation DTXExpectationBuilderTests {
+    UIWindow* _testWindow;
+    UIViewController* _testViewController;
+}
 
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    _testViewController = [UIViewController new];
+    _testWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    _testWindow.rootViewController = _testViewController;
+    [_testWindow makeKeyAndVisible];
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [_testWindow setHidden:YES];
+    _testWindow.rootViewController = nil;
+    _testWindow = nil;
+    _testViewController = nil;
     [super tearDown];
 }
 
@@ -550,6 +561,140 @@
 - (void)_generateAvailableExpects;
 - (void)_updateGeneratedExpectStringWithExpect:(NSDictionary*)selectedExpect parameterValue:(nullable NSString*)parameterValue;
 @end
+
+
+#pragma mark - UIViewController+DTXAdditions Tests
+
+- (void)testShowAlert_PresentsAlertController {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert presentation expectation"];
+
+    [_testViewController dtx_showAlertWithTitle:@"Test Title" message:@"Test Message"];
+
+    // Give a short delay for the presentation to occur
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        XCTAssertNotNil(self->_testViewController.presentedViewController, @"Should present a view controller.");
+        XCTAssertTrue([self->_testViewController.presentedViewController isKindOfClass:[UIAlertController class]], @"Presented view controller should be a UIAlertController.");
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlert_CorrectTitleAndMessage {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert content expectation"];
+    [_testViewController dtx_showAlertWithTitle:@"Test Title" message:@"Test Message"];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertController* alert = (UIAlertController*)self->_testViewController.presentedViewController;
+        XCTAssertTrue([alert.title isEqualToString:@"Test Title"], @"Alert title is incorrect.");
+        XCTAssertTrue([alert.message isEqualToString:@"Test Message"], @"Alert message is incorrect.");
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlert_HasOKAction {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert OK action expectation"];
+    [_testViewController dtx_showAlertWithTitle:@"Test Title" message:@"Test Message"];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertController* alert = (UIAlertController*)self->_testViewController.presentedViewController;
+        XCTAssertEqual(alert.actions.count, 1, @"Alert should have one action.");
+        XCTAssertEqualObjects(alert.actions.firstObject.title, NSLocalizedString(@"OK", nil), @"Action title should be OK.");
+        XCTAssertEqual(alert.actions.firstObject.style, UIAlertActionStyleDefault, @"Action style should be Default.");
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlertWithDuration_PresentsAlertController {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert with duration presentation expectation"];
+    [_testViewController dtx_showAlertWithTitle:@"Test Title" message:@"Test Message" duration:0.1];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // Shorter delay to check before auto-dismiss
+        XCTAssertNotNil(self->_testViewController.presentedViewController, @"Should present a view controller.");
+        XCTAssertTrue([self->_testViewController.presentedViewController isKindOfClass:[UIAlertController class]], @"Presented view controller should be a UIAlertController.");
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlertWithDuration_CorrectTitleAndMessage {
+     XCTestExpectation* expectation = [self expectationWithDescription:@"Alert with duration content expectation"];
+    [_testViewController dtx_showAlertWithTitle:@"Duration Title" message:@"Duration Message" duration:0.2];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertController* alert = (UIAlertController*)self->_testViewController.presentedViewController;
+        XCTAssertTrue([alert.title isEqualToString:@"Duration Title"], @"Alert title is incorrect.");
+        XCTAssertTrue([alert.message isEqualToString:@"Duration Message"], @"Alert message is incorrect.");
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlertWithDuration_NoExplicitOKActionForAutoDismiss_PositiveDuration {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert no OK action for positive duration"];
+    [_testViewController dtx_showAlertWithTitle:@"Test Title" message:@"Test Message" duration:0.1];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertController* alert = (UIAlertController*)self->_testViewController.presentedViewController;
+        XCTAssertEqual(alert.actions.count, 0, @"Alert with positive duration should have no explicit actions for auto-dismissal.");
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlertWithDuration_BehavesAsStandardAlertForZeroDuration {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert behaves as standard for zero duration"];
+    [_testViewController dtx_showAlertWithTitle:@"Zero Duration" message:@"Test" duration:0.0];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertController* alert = (UIAlertController*)self->_testViewController.presentedViewController;
+        XCTAssertEqual(alert.actions.count, 1, @"Alert with zero duration should have one OK action.");
+        XCTAssertEqualObjects(alert.actions.firstObject.title, NSLocalizedString(@"OK", nil));
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlertWithDuration_AttemptsDismissal {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert auto-dismissal expectation"];
+
+    [_testViewController dtx_showAlertWithTitle:@"Auto Dismiss" message:@"Test" duration:0.1];
+
+    // Check that it's initially presented
+     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        XCTAssertNotNil(self->_testViewController.presentedViewController, @"Alert should be presented initially.");
+    });
+
+    // Wait for longer than the duration
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        XCTAssertNil(self->_testViewController.presentedViewController, @"Alert should be dismissed after its duration.");
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testShowAlert_CalledFromBackgroundThread {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"Alert presentation from background thread"];
+
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        [self->_testViewController dtx_showAlertWithTitle:@"Background Thread Test" message:@"Message"];
+    });
+
+    // Check on the main thread after a delay
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        XCTAssertNotNil(self->_testViewController.presentedViewController, @"Should present an alert even when called from background thread.");
+        XCTAssertTrue([self->_testViewController.presentedViewController isKindOfClass:[UIAlertController class]], @"Presented VC should be UIAlertController.");
+        // Cleanup presented alert for next tests if any
+        [self->_testViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
+            [expectation fulfill];
+        }];
+    });
+
+    [self waitForExpectationsWithTimeout:2.0 handler:nil];
+}
 
 
 @end
