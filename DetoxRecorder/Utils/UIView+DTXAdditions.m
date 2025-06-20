@@ -1,11 +1,3 @@
-//
-//  UIView+DTXAdditions.m
-//  DetoxRecorder
-//
-//  Created by Leo Natan on 12/16/20.
-//  Copyright © 2020 Wix. All rights reserved.
-//
-
 #import "UIView+DTXAdditions.h"
 
 @implementation UIView (DTXAdditions)

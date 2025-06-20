@@ -27,14 +27,8 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
+          <string>testerapprn</string>
           <string>com.anonymous.TesterAppRN</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>exp+testerapprn</string>
         </array>
       </dict>
     </array>

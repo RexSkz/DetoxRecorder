@@ -30,8 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString* generatedExpectString;
 
 @property (nonatomic, strong) UITextField* expectParameterTextField;
-@property (nonatomic, strong) UIButton* copyButton;
-@property (nonatomic, strong) UIButton* insertButton;
+@property (nonatomic, strong) UIButton* buttonCopy;
+@property (nonatomic, strong) UIButton* buttonInsert;
 
 @end
 

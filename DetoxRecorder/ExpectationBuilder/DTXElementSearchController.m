@@ -188,7 +188,7 @@
 	[_searchBar resignFirstResponder];
 }
 
-- (void)searchBar:(UISearchBAr *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
 	[self _performSearch];
 }

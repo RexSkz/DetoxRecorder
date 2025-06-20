@@ -13,7 +13,6 @@
 		390FF63B2497CB3A0022BF11 /* UITableView+SelectionCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FF6392497CB3A0022BF11 /* UITableView+SelectionCapture.m */; };
 		390FF63E249820190022BF11 /* NSObject+AttachedObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 390FF63C249820190022BF11 /* NSObject+AttachedObjects.h */; };
 		390FF63F249820190022BF11 /* NSObject+AttachedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FF63D249820190022BF11 /* NSObject+AttachedObjects.m */; };
-		3912A48A2588B37B00FB92F0 /* DTXSocketConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F424C5BC1800BDBDA9 /* DTXSocketConnection.framework */; };
 		3912A48D2588B6CB00FB92F0 /* DTXElementSearchController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3912A48B2588B6CB00FB92F0 /* DTXElementSearchController.h */; };
 		3912A48E2588B6CB00FB92F0 /* DTXElementSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3912A48C2588B6CB00FB92F0 /* DTXElementSearchController.m */; };
 		393CB0F924C5BC3200BDBDA9 /* DTXSocketConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F424C5BC1800BDBDA9 /* DTXSocketConnection.framework */; };
@@ -98,6 +97,14 @@
 		60A5BB762D9B94AF00FD651A /* NSObject+RecorderUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A5BB752D9B94AE00FD651A /* NSObject+RecorderUtils.m */; };
 		60A5BBAF2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A5BBAE2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m */; };
 		60A5BBB02D9C43EA00FD651A /* DTXFabricComponentViewUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 60A5BBAD2D9C43EA00FD651A /* DTXFabricComponentViewUtils.h */; };
+		CDFE17492DFFC4F1008484F1 /* DTXRecordedExpectationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE17442DFFC4F1008484F1 /* DTXRecordedExpectationAction.m */; };
+		CDFE174A2DFFC4F1008484F1 /* DTXRecordedExpectationAction.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFE17432DFFC4F1008484F1 /* DTXRecordedExpectationAction.h */; };
+		CDFE17512DFFC535008484F1 /* UIViewController+DTXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE17502DFFC535008484F1 /* UIViewController+DTXAdditions.m */; };
+		CDFE17522DFFC535008484F1 /* UIView+DTXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE174E2DFFC535008484F1 /* UIView+DTXAdditions.m */; };
+		CDFE17532DFFC535008484F1 /* UIView+DTXAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFE174D2DFFC535008484F1 /* UIView+DTXAdditions.h */; };
+		CDFE17542DFFC535008484F1 /* UIViewController+DTXAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFE174F2DFFC535008484F1 /* UIViewController+DTXAdditions.h */; };
+		CDFE17902E04FFE9008484F1 /* DTXSocketConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F424C5BC1800BDBDA9 /* DTXSocketConnection.framework */; };
+		CDFE17912E04FFE9008484F1 /* DTXSocketConnection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 393CB0F424C5BC1800BDBDA9 /* DTXSocketConnection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +165,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CDFE17912E04FFE9008484F1 /* DTXSocketConnection.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +289,12 @@
 		60A5BB752D9B94AE00FD651A /* NSObject+RecorderUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RecorderUtils.m"; sourceTree = "<group>"; };
 		60A5BBAD2D9C43EA00FD651A /* DTXFabricComponentViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTXFabricComponentViewUtils.h; sourceTree = "<group>"; };
 		60A5BBAE2D9C43EA00FD651A /* DTXFabricComponentViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTXFabricComponentViewUtils.m; sourceTree = "<group>"; };
+		CDFE17432DFFC4F1008484F1 /* DTXRecordedExpectationAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTXRecordedExpectationAction.h; sourceTree = "<group>"; };
+		CDFE17442DFFC4F1008484F1 /* DTXRecordedExpectationAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTXRecordedExpectationAction.m; sourceTree = "<group>"; };
+		CDFE174D2DFFC535008484F1 /* UIView+DTXAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+DTXAdditions.h"; sourceTree = "<group>"; };
+		CDFE174E2DFFC535008484F1 /* UIView+DTXAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+DTXAdditions.m"; sourceTree = "<group>"; };
+		CDFE174F2DFFC535008484F1 /* UIViewController+DTXAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DTXAdditions.h"; sourceTree = "<group>"; };
+		CDFE17502DFFC535008484F1 /* UIViewController+DTXAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DTXAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,7 +310,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3912A48A2588B37B00FB92F0 /* DTXSocketConnection.framework in Frameworks */,
+				CDFE17902E04FFE9008484F1 /* DTXSocketConnection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +383,10 @@
 		39449C3F2462E78100B967FC /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CDFE174D2DFFC535008484F1 /* UIView+DTXAdditions.h */,
+				CDFE174E2DFFC535008484F1 /* UIView+DTXAdditions.m */,
+				CDFE174F2DFFC535008484F1 /* UIViewController+DTXAdditions.h */,
+				CDFE17502DFFC535008484F1 /* UIViewController+DTXAdditions.m */,
 				39C0135C2473CC8000784C84 /* DTXAppleInternals.h */,
 				395AD7C724B385D4002B382B /* DTXLogging.h */,
 				395AD7C624B385D4002B382B /* DTXLogging.m */,
@@ -476,6 +494,8 @@
 		39C201A4226D471100E8CE30 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				CDFE17432DFFC4F1008484F1 /* DTXRecordedExpectationAction.h */,
+				CDFE17442DFFC4F1008484F1 /* DTXRecordedExpectationAction.m */,
 				39D61DC6257D76470077ED8F /* Element */,
 				39AE548C2490FA3A0093BFEE /* _DTXAdjustSliderAction.h */,
 				39AE548D2490FA3A0093BFEE /* _DTXAdjustSliderAction.m */,
@@ -539,6 +559,9 @@
 				39F5AD202461A31400FB7F18 /* DTXUIInteractionRecorder.h in Headers */,
 				39C013792473CC8000784C84 /* DTXAppleInternals.h in Headers */,
 				39454C1C24A91BB100761A51 /* DTXSwizzlingHelper.h in Headers */,
+				CDFE17532DFFC535008484F1 /* UIView+DTXAdditions.h in Headers */,
+				CDFE17542DFFC535008484F1 /* UIViewController+DTXAdditions.h in Headers */,
+				CDFE174A2DFFC4F1008484F1 /* DTXRecordedExpectationAction.h in Headers */,
 				395AD7CC24B38D04002B382B /* DTXLoggingSubsystem.h in Headers */,
 				39AE549D249247370093BFEE /* DTXRecSettingsViewController.h in Headers */,
 				390FF63A2497CB3A0022BF11 /* UITableView+SelectionCapture.h in Headers */,
@@ -724,6 +747,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDFE17492DFFC4F1008484F1 /* DTXRecordedExpectationAction.m in Sources */,
 				39F5AD0F2461A2A000FB7F18 /* UIScrollView+ScrollToTopCapture.m in Sources */,
 				39F4205E257EB85300610F2F /* DTXPickerTypeSelectionController.m in Sources */,
 				39C013422472EB8E00784C84 /* _DTXLongPressAction.m in Sources */,
@@ -738,6 +762,8 @@
 				39C0137B2473CC8000784C84 /* UIPickerView+RecorderUtils.m in Sources */,
 				39BA9FB624A11A2400681E72 /* _DTXShakeDeviceAction.m in Sources */,
 				39449C4B2462F68000B967FC /* _DTXSetDatePickerDateAction.m in Sources */,
+				CDFE17512DFFC535008484F1 /* UIViewController+DTXAdditions.m in Sources */,
+				CDFE17522DFFC535008484F1 /* UIView+DTXAdditions.m in Sources */,
 				390FF62F24968B620022BF11 /* NSString+QuotedStringForJS.m in Sources */,
 				39F5AD0E2461A29E00FB7F18 /* UIInputCapture.m in Sources */,
 				39AE54932490FAE10093BFEE /* UISlider+RecorderUtils.m in Sources */,

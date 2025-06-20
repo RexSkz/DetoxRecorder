@@ -99,7 +99,7 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
         [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
     ]];
     // Ensure properties don't get squished if snapshot is too tall relative to them
-    [propertiesStackView.bottomAnchor constraintLessThanOrEqualToAnchor:self.snapshotImageView.bottomAnchor relation:NSLayoutRelationGreaterThanOrEqual priority:UILayoutPriorityDefaultLow];
+    // [propertiesStackView.bottomAnchor constraintLessThanOrEqualToAnchor:self.snapshotImageView.bottomAnchor relation:NSLayoutRelationGreaterThanOrEqual priority:UILayoutPriorityDefaultLow];
 
     self.availableExpects = @[];
 
@@ -115,21 +115,21 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
     [self.view addSubview:self.expectParameterTextField];
 
     // Buttons
-    self.copyButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.copyButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.copyButton setTitle:@"Copy to Clipboard" forState:UIControlStateNormal];
-    [self.copyButton addTarget:self action:@selector(_copyExpect:) forControlEvents:UIControlEventTouchUpInside];
-    self.copyButton.enabled = NO;
-    self.copyButton.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+    self.buttonCopy = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.buttonCopy.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.buttonCopy setTitle:@"Copy to Clipboard" forState:UIControlStateNormal];
+    [self.buttonCopy addTarget:self action:@selector(_copyExpect:) forControlEvents:UIControlEventTouchUpInside];
+    self.buttonCopy.enabled = NO;
+    self.buttonCopy.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
 
-    self.insertButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.insertButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.insertButton setTitle:@"Insert into Script" forState:UIControlStateNormal];
-    [self.insertButton addTarget:self action:@selector(_insertExpect:) forControlEvents:UIControlEventTouchUpInside];
-    self.insertButton.enabled = NO;
-    self.insertButton.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+    self.buttonInsert = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.buttonInsert.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.buttonInsert setTitle:@"Insert into Script" forState:UIControlStateNormal];
+    [self.buttonInsert addTarget:self action:@selector(_insertExpect:) forControlEvents:UIControlEventTouchUpInside];
+    self.buttonInsert.enabled = NO;
+    self.buttonInsert.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
 
-    UIStackView* buttonsStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.copyButton, self.insertButton]];
+    UIStackView* buttonsStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.buttonCopy, self.buttonInsert]];
     buttonsStackView.translatesAutoresizingMaskIntoConstraints = NO;
     buttonsStackView.axis = UILayoutConstraintAxisHorizontal;
     buttonsStackView.distribution = UIStackViewDistributionFillEqually;
@@ -318,8 +318,8 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
         self.generatedExpectString = nil;
         self.expectParameterTextField.text = @"";
         self.expectParameterTextField.hidden = YES;
-        self.copyButton.enabled = NO;
-        self.insertButton.enabled = NO;
+        self.buttonCopy.enabled = NO;
+        self.buttonInsert.enabled = NO;
 
         [self _generateAvailableExpects]; // This will reload section 1 (Expects)
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:DTXSelectedElementSectionMatchers] withRowAnimation:UITableViewRowAnimationNone]; // For checkmark
@@ -401,8 +401,8 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
 - (void)_updateGeneratedExpectStringWithExpect:(NSDictionary*)selectedExpect parameterValue:(nullable NSString*)parameterValue {
     if (!self.selectedMatcher || !selectedExpect) {
         self.generatedExpectString = nil;
-        self.copyButton.enabled = NO;
-        self.insertButton.enabled = NO;
+        self.buttonCopy.enabled = NO;
+        self.buttonInsert.enabled = NO;
         return;
     }
 
@@ -442,8 +442,8 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
     if(requiresParameter && (!parameterValue || parameterValue.length == 0)) {
         canInteract = NO; // Disable if parameter is required but empty
     }
-    self.copyButton.enabled = canInteract;
-    self.insertButton.enabled = canInteract;
+    self.buttonCopy.enabled = canInteract;
+    self.buttonInsert.enabled = canInteract;
 }
 
 - (void)_copyExpect:(UIButton*)sender {
@@ -456,8 +456,8 @@ NSInteger const DTXSelectedElementSectionExpects = 1;
 - (void)_insertExpect:(UIButton*)sender {
     if (self.generatedExpectString && self.generatedExpectString.length > 0) {
         DTXRecordedExpectationAction* expectationAction = [[DTXRecordedExpectationAction alloc] initWithExpectString:self.generatedExpectString];
-        DTXUIInteractionRecorder* recorder = [DTXUIInteractionRecorder sharedRecorder];
-        [recorder recordAction:expectationAction];
+        // DTXUIInteractionRecorder* recorder = [DTXUIInteractionRecorder sharedRecorder];
+        // [recorder recordAction:expectationAction];
 
         [self dtx_showAlertWithTitle:@"Success" message:@"Expectation inserted into script."];
         // Consider dismissing the controller or providing a "Done" button.
