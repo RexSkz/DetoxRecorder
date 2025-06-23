@@ -22,6 +22,10 @@ import {
 const App = () => {
   const [switchValue, setSwitchValue] = React.useState(false);
 
+  React.useEffect(() => {
+    console.log('Switch value changed:', switchValue);
+  }, [switchValue]);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
